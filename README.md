@@ -4,6 +4,23 @@
 
 Page web installable (PWA), qui marche hors connexion, et qui affiche une carte de lecteur avec un code-barres Code 128 généré dans le navigateur (norme implémentée à la main, sans bibliothèque).
 
+> **Projet de test, non officiel.** Simple petit projet d'apprentissage, voir l'avertissement plus bas.
+
+## À quoi ça sert
+
+L'idée : en cas de **perte, de vol ou d'oubli** de la carte physique, avoir sous la main une **carte numérique de secours** sur son téléphone, avec le même code-barres que la carte d'origine.
+
+C'est seulement une idée de test : rien n'indique qu'elle soit acceptée par la bibliothèque. En cas de perte ou de vol de la vraie carte, il faut quand même **prévenir la bibliothèque**.
+
+## Comment l'utiliser
+
+1. Ouvrir le lien : https://hichembzd-ui.github.io/carte-lecteur/
+2. Toucher le bouton **« تعديل البيانات »** (qui veut dire « modifier les données »).
+3. Remplir **le nom, le prénom et le numéro de lecteur**. Le numéro de lecteur est **le numéro écrit sous le code-barres** de ta carte physique : il faut donc le noter **avant** de perdre la carte.
+4. Garder le type **Code 128** (c'est le format de la carte d'origine), puis enregistrer. Le code-barres se recalcule tout seul.
+5. Pour le présenter : toucher le code-barres pour l'afficher en plein écran, avec la luminosité au maximum.
+6. Pour l'avoir toujours sous la main, l'installer sur l'écran d'accueil (voir « Installation » plus bas).
+
 ## Avertissement important
 
 - **Ce projet n'est pas officiel.** Il n'est ni créé, ni approuvé, ni reconnu par la Bibliothèque nationale d'Algérie ni par aucune institution.
