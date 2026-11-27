@@ -20,6 +20,16 @@ C'est seulement une idée de test : rien n'indique qu'elle soit acceptée par la
 - C'est un **simple générateur de code-barres** : on entre un numéro, la page dessine le code-barres correspondant (Code 128). Elle ne se connecte à aucun système de la bibliothèque.
 - Projet fait avec l'aide d'une IA, comme indiqué plus bas. Il reste à tester en conditions réelles et **rien n'est officiel**.
 
+## Le concept : comment ça marche
+
+1. **Sur la carte d'origine**, le code-barres n'est qu'une autre façon d'écrire un numéro : le numéro de lecteur (ici, celui imprimé sous le code). Le dessin en barres et le chiffre disent la même chose.
+2. **Ce numéro sert de clé d'identification.** En théorie, quand l'agent scanne le code avec son pistolet, le scanner lit le numéro et l'envoie au logiciel de la bibliothèque. Le logiciel cherche ce numéro dans sa base de données et affiche la fiche du lecteur à l'écran de l'agent (identité, abonnement, etc.). Le code-barres ne contient donc pas la fiche : il ne contient que le numéro qui permet de la retrouver.
+3. **Cette application contient un générateur de code-barres.** Tu tapes le numéro de ta carte d'origine, et elle redessine le même code-barres (Code 128 ou Code 39) sur l'écran du téléphone. Le scanner de l'agent lit alors ce dessin comme il lirait la carte en plastique, et obtient le même numéro.
+4. **Tout se passe dans ton téléphone.** L'application ne se connecte à aucune base de données, n'envoie rien à la bibliothèque et ne contient aucune donnée de la bibliothèque. Elle ne fait que dessiner un numéro que tu lui as donné, sans connexion internet.
+
+> Ce qui est vérifié : le code-barres généré est identique à celui de la vraie carte pour le même numéro.
+> Ce qui n'est pas vérifié : le fonctionnement exact du logiciel de la bibliothèque (ce que voit l'agent, et si le scanner accepte l'écran d'un téléphone). C'est la description la plus probable, pas une information officielle. Voir l'avertissement ci-dessous : il n'y a aucune garantie.
+
 ## Comment l'utiliser
 
 1. Ouvrir le lien : https://hichembzd-ui.github.io/carte-lecteur/
