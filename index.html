@@ -416,7 +416,8 @@ if("serviceWorker" in navigator){ window.addEventListener("load",function(){ nav
     "رقم القارئ (الرقم المطبوع تحت الرمز)":"N° de lecteur (celui imprimé sous le code)",
     "نوع الرمز الشريطي":"Type de code-barres",
     "Code 128 (الأكثر شيوعاً)":"Code 128 (le plus courant)",
-    "الفئة":"Catégorie","قارئ":"Lecteur","باحث (ماستر)":"Chercheur (master)","طفل":"Enfant",
+    "الفئة":"Catégorie",
+    "اللقب بالحروف اللاتينية":"Nom en lettres latines","الاسم بالحروف اللاتينية":"Prénom en lettres latines","قارئ":"Lecteur","باحث (ماستر)":"Chercheur (master)","طفل":"Enfant",
     "لون البطاقة للزينة فقط، وليس له أي قيمة رسمية.":"La couleur de la carte est purement décorative et n’a aucune valeur officielle.",
     "إذا لم يقرأ الماسح الرمز، جرّب النوع الآخر. تُحفظ البيانات في هذا المتصفح فقط ولا تُرسل إلى أي مكان.":"Si le scanner ne lit pas le code, essayez l’autre type. Les données restent uniquement dans ce navigateur et ne sont envoyées nulle part.",
     "تنبيه مهم:":"Avis important :","هذه بطاقة رقمية":"Ceci est une carte numérique","تجريبية وغير رسمية":"expérimentale et non officielle",
@@ -492,6 +493,7 @@ if("serviceWorker" in navigator){ window.addEventListener("load",function(){ nav
     root.setAttribute("lang",l); root.setAttribute("dir",l==="fr"?"ltr":"rtl");
     if(l==="fr"){ walk(document.body,trText); attrs(true); document.title=TITLE_FR; }
     else{ walk(document.body,function(n){ if(orig.has(n)){ n.nodeValue=orig.get(n); orig.delete(n); } }); attrs(false); document.title=TITLE_AR; }
+    refreshNames();
     var bar=document.getElementById("lang-sw");
     if(bar){ bar.setAttribute("data-l",l); Array.prototype.forEach.call(bar.querySelectorAll("button"),function(b){ b.setAttribute("aria-pressed",b.getAttribute("data-l")===l?"true":"false"); }); }
     setTimeout(function(){ busy=false; },0);
@@ -538,6 +540,24 @@ if("serviceWorker" in navigator){ window.addEventListener("load",function(){ nav
   }
   sel.addEventListener("change",function(){ setStatus(sel.value,true); });
   setStatus(load("lecteur-status")||"reader",false);
+
+  // optional Latin-letter version of the name, shown in French
+  function mkLab(id,txt){ var l=document.createElement("label"); l.setAttribute("for",id); l.innerHTML=txt+'<input id="'+id+'" type="text" dir="auto" maxlength="30">'; return l; }
+  var labL=mkLab("in-last-fr","اللقب بالحروف اللاتينية"), labF=mkLab("in-first-fr","الاسم بالحروف اللاتينية");
+  form.insertBefore(labL,lab); form.insertBefore(labF,lab);
+  var alt={last:"",first:""};
+  try{ var sv=JSON.parse(load("lecteur-alt")||"{}"); alt.last=sv.last||""; alt.first=sv.first||""; }catch(e){}
+  var iL=labL.querySelector("input"), iF=labF.querySelector("input"); iL.value=alt.last; iF.value=alt.first;
+  function refreshNames(){
+    var a=document.getElementById("in-last"), b=document.getElementById("in-first"), vl=document.getElementById("v-last"), vf=document.getElementById("v-first");
+    if(!a||!b||!vl||!vf) return;
+    var l=(lang==="fr"&&alt.last)||a.value||"—", f=(lang==="fr"&&alt.first)||b.value||"—";
+    if(vl.textContent!==l) vl.textContent=l; if(vf.textContent!==f) vf.textContent=f;
+  }
+  function onAlt(){ alt.last=iL.value.trim(); alt.first=iF.value.trim(); store("lecteur-alt",JSON.stringify(alt)); refreshNames(); }
+  iL.addEventListener("input",onAlt); iF.addEventListener("input",onAlt);
+  form.addEventListener("input",function(){ refreshNames(); });
+  refreshNames();
 
   if(load("lecteur-lang")==="fr") applyLang("fr");
 })();
