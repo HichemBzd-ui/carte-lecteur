@@ -36,7 +36,7 @@ C'est seulement une idée de test : rien n'indique qu'elle soit acceptée par la
 2. Toucher le bouton **« تعديل البيانات »** (qui veut dire « modifier les données »).
 3. Remplir **le nom, le prénom et le numéro de lecteur**. Le numéro de lecteur est **le numéro écrit sous le code-barres** de ta carte physique : il faut donc le noter **avant** de perdre la carte.
 4. Garder le type **Code 128** (c'est le format de la carte d'origine), puis enregistrer. Le code-barres se recalcule tout seul.
-5. Pour le présenter : toucher le code-barres pour l'afficher en plein écran, avec la luminosité au maximum.
+5. Pour le présenter : **de préférence, présenter directement la page principale au scanner**, avec la luminosité au maximum, sans avoir besoin de toucher le code-barres. Le plein écran (« Appuyez sur le code pour l'afficher en grand ») est seulement une option, pas une obligation : il n'est utile que si le scanner a du mal à lire le petit code.
 6. Pour l'avoir toujours sous la main, l'installer sur l'écran d'accueil (voir « Installation » plus bas).
 
 ## Avertissement important
