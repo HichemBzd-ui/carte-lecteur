@@ -147,6 +147,15 @@ html[dir=ltr] .fields .num,html[dir=ltr] input[dir=ltr]{text-align:left}
   .stage,.sheet .wrap,.scan .stagebox,.scan .tip{transition:opacity .2s ease,filter .2s ease,transform .2s ease}
   html.sw .stage>:not(.langbar),html.sw .sheet .wrap,html.sw .scan .tip{opacity:0;filter:blur(4px);transform:translateY(8px)}
 }
+/* ---------- code plus compact + icône de catégorie ---------- */
+.codepanel{width:74%;margin:0 auto;padding:10px 10px 7px;border-radius:14px}
+.codepanel .bars{min-height:52px}
+.codepanel .bars svg{height:52px;max-width:100%}
+.codepanel .digits{margin-top:4px;font-size:12px}
+.hint{font-size:10.5px}
+.card{min-height:430px}
+.pill{display:inline-flex;align-items:center;gap:5px}
+.pill svg{width:13px;height:13px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 </style>
 </head>
 <body>
@@ -533,10 +542,15 @@ if("serviceWorker" in navigator){ window.addEventListener("load",function(){ nav
   var nt=document.createElement("p"); nt.className="note"; nt.textContent="لون البطاقة للزينة فقط، وليس له أي قيمة رسمية.";
   var first=form.querySelector(".note"); form.insertBefore(lab,first); form.insertBefore(nt,first);
   var sel=lab.querySelector("select");
+  var ICON={
+    reader:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5z"/><path d="M12 6v13.5"/></svg>',
+    researcher:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v6"/></svg>',
+    child:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.8 6.8 19.6l1-5.8-4.3-4.1 5.9-.9z"/></svg>'
+  };
   function setStatus(s,save){
     if(!STATUS[s]) s="reader";
     sel.value=s; if(s==="reader") card.removeAttribute("data-status"); else card.setAttribute("data-status",s);
-    pill.textContent=STATUS[s].ar; if(save) store("lecteur-status",s);
+    pill.textContent=STATUS[s].ar; pill.insertAdjacentHTML("afterbegin",ICON[s]); if(save) store("lecteur-status",s);
   }
   sel.addEventListener("change",function(){ setStatus(sel.value,true); });
   setStatus(load("lecteur-status")||"reader",false);
