@@ -12,6 +12,14 @@ L'idée : en cas de **perte, de vol ou d'oubli** de la carte physique, avoir sou
 
 C'est seulement une idée de test : rien n'indique qu'elle soit acceptée par la bibliothèque. En cas de perte ou de vol de la vraie carte, il faut quand même **prévenir la bibliothèque**.
 
+## L'esprit du projet
+
+- **Gratuit et sans but lucratif.** Je ne cherche ni argent, ni rémunération, ni rien en échange. C'est fait par plaisir, pour aider : en voyant des étudiants, parfois venus de loin ou d'autres wilayas, refusés à l'entrée parce qu'ils ont oublié leur carte.
+- **Si la bibliothèque le souhaite**, je peux le lui donner gratuitement, sans condition, et l'institution en fait ce qu'elle veut.
+- **Aucune donnée n'est collectée.** C'est une simple page web : tout se passe dans le navigateur de la personne. Le nom et le numéro saisis restent sur son appareil, je n'y ai aucun accès, et il n'y a ni serveur, ni base de données, ni compte. Le code est ouvert et chacun peut le vérifier dans ce dépôt.
+- C'est un **simple générateur de code-barres** : on entre un numéro, la page dessine le code-barres correspondant (Code 128). Elle ne se connecte à aucun système de la bibliothèque.
+- Projet fait avec l'aide d'une IA, comme indiqué plus bas. Il reste à tester en conditions réelles et **rien n'est officiel**.
+
 ## Comment l'utiliser
 
 1. Ouvrir le lien : https://hichembzd-ui.github.io/carte-lecteur/
