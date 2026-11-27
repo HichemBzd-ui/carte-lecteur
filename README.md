@@ -35,6 +35,7 @@ C'est seulement une idée de test : rien n'indique qu'elle soit acceptée par la
 - C'est une **idée et un petit projet personnel de test**, fait pour apprendre. Rien ne garantit qu'il soit accepté ou lu par un scanner ou un système de contrôle.
 - **Personne n'est obligé de l'utiliser.** Quiconque choisit de l'utiliser le fait **à ses propres risques et sous sa seule responsabilité**.
 - **L'auteur n'est responsable de rien** en cas d'utilisation (refus d'accès, problème avec une institution, etc.), tant que le projet n'a pas été officialisé par l'institution concernée. S'il le devient un jour, cet avertissement sera mis à jour.
+- **À utiliser uniquement en cas de perte de la carte physique.** Après utilisation, il faut **se rendre directement à l'administration de la bibliothèque** pour signaler la perte. Cette carte numérique ne remplace pas la vraie carte et ne dispense jamais de ce signalement.
 - Ne pas utiliser pour se faire passer pour quelqu'un d'autre : chacun entre uniquement **ses propres** informations.
 
 ## Avertissement (بالعربية)
