@@ -1,5 +1,11 @@
 # Carte de lecteur numérique
 
+**Ouvrir la carte : https://hichembzd-ui.github.io/carte-lecteur/**
+
+Installation : ouvrir le lien sur le telephone (Safari sur iPhone, Chrome sur Android), puis "Sur l'ecran d'accueil" / "Installer l'application". Ensuite elle marche sans internet.
+
+
+
 Page web installable (PWA), hors connexion, qui affiche une carte de lecteur avec un code-barres
 Code 128 généré dans le navigateur (aucune bibliothèque, norme implémentée à la main).
 
