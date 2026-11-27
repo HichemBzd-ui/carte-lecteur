@@ -41,6 +41,18 @@ Ouvrir le lien sur le téléphone (Safari sur iPhone, Chrome sur Android), puis 
 
 Les données saisies (nom, numéro) restent **uniquement sur l'appareil** de la personne (stockage local du navigateur). Rien n'est envoyé nulle part et rien n'est enregistré dans ce dépôt. Les valeurs par défaut sont fictives.
 
+## Pour la Bibliothèque nationale et ses responsables
+
+Ce projet pourrait devenir une vraie solution **s'il était validé par la bibliothèque**. Donc :
+
+- Si vous êtes **responsable à la Bibliothèque nationale** (ou dans l'institution) et que l'idée vous intéresse, vous pouvez me contacter pour en discuter sérieusement.
+- Si vous **connaissez un responsable** là-bas, ou si vous avez des contacts qui pourraient lui présenter l'idée, n'hésitez pas à me joindre : l'objectif est de la proposer officiellement, de manière sérieuse et transparente.
+- Ceci n'est pas une blague : c'est une vraie proposition, faite en toute bonne foi, que l'institution est libre d'accepter ou de refuser.
+
+**Comment me contacter :** ouvrir une discussion dans l'onglet **Issues** de ce dépôt (bouton « New issue »), ou passer par ce compte GitHub.
+
+للمسؤولين في المكتبة الوطنية الجزائرية، أو لمن يعرف مسؤولا هناك: إذا أعجبتكم الفكرة وترغبون في دراستها رسميا، يمكنكم التواصل معي عبر قسم **Issues** في هذا المستودع أو عبر هذا الحساب.
+
 ## À propos
 
 Projet d'apprentissage réalisé avec l'aide d'une IA (Claude). Le format Code 128 a été décodé et vérifié sur une vraie carte pour comparer les barres.
