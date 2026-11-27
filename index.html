@@ -122,6 +122,31 @@ footer{padding:4px;font-size:11.5px;color:var(--muted);line-height:1.8}
 .sheet .qrrow p{margin:0;font-size:12.5px;line-height:1.8;color:var(--muted)}
 .sheet .qrrow bdi{display:block;direction:ltr;text-align:start;color:var(--ink);font-weight:500;font-size:14px}
 .sheet .disc li::before{background:var(--gold)}
+
+/* ---------- langue (AR/FR) et statut ---------- */
+@property --c1{syntax:"<color>";inherits:true;initial-value:#0E3870}
+@property --c2{syntax:"<color>";inherits:true;initial-value:#0B3063}
+@property --c3{syntax:"<color>";inherits:true;initial-value:#071F44}
+@property --curve{syntax:"<color>";inherits:true;initial-value:#1D5AA6}
+.card{--c1:#0E3870;--c2:#0B3063;--c3:#071F44;--curve:#1D5AA6;background:linear-gradient(162deg,var(--c1) 0%,var(--c2) 48%,var(--c3) 100%)}
+.card .curves path{fill:var(--curve)}
+.card[data-status=researcher]{--c1:#8C1832;--c2:#701328;--c3:#430A17;--curve:#D1495B}
+.card[data-status=child]{--c1:#0F7C80;--c2:#0B6468;--c3:#063F42;--curve:#2BB5AE}
+.langbar{direction:ltr;display:flex;justify-content:flex-end}
+.lang{position:relative;display:inline-grid;grid-template-columns:1fr 1fr;background:#fff;border:1px solid #CCD7E6;border-radius:999px;padding:3px;box-shadow:0 1px 0 rgba(10,26,51,.05)}
+.lang button{all:unset;position:relative;z-index:1;cursor:pointer;box-sizing:border-box;min-width:76px;text-align:center;padding:6px 14px 7px;border-radius:999px;font-size:13px;font-weight:500;color:var(--muted);line-height:1.2}
+.lang button[aria-pressed=true]{color:#fff}
+.lang button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.lang .knob{position:absolute;z-index:0;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);border-radius:999px;background:var(--navy-700);transform:translateX(0)}
+.lang[data-l=ar] .knob{transform:translateX(100%)}
+html[dir=ltr] .fields .num,html[dir=ltr] input[dir=ltr]{text-align:left}
+@media (prefers-reduced-motion:no-preference){
+  .card{transition:--c1 .6s ease,--c2 .6s ease,--c3 .6s ease,--curve .6s ease}
+  .lang .knob{transition:transform .35s cubic-bezier(.3,.8,.3,1)}
+  .lang button{transition:color .25s ease}
+  .stage,.sheet .wrap,.scan .stagebox,.scan .tip{transition:opacity .2s ease,filter .2s ease,transform .2s ease}
+  html.sw .stage>:not(.langbar),html.sw .sheet .wrap,html.sw .scan .tip{opacity:0;filter:blur(4px);transform:translateY(8px)}
+}
 </style>
 </head>
 <body>
@@ -372,6 +397,149 @@ if("serviceWorker" in navigator){ window.addEventListener("load",function(){ nav
   function hide(){ sh.hidden=true; document.body.style.overflow=""; op.focus(); }
   op.addEventListener("click",show); c1.addEventListener("click",hide); c2.addEventListener("click",hide);
   document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&!sh.hidden) hide(); });
+})();
+</script>
+<script>
+(function(){
+  "use strict";
+  var FR={
+    "بطاقة القارئ الرقمية":"Carte de lecteur numérique",
+    "بيانات تجريبية، عدّلها من زر «تعديل البيانات»":"Données de test, modifiez-les avec le bouton « Modifier les données »",
+    "الجمهورية الجزائرية الديمقراطية الشعبية":"République algérienne démocratique et populaire",
+    "وزارة الثقافة والفنون":"Ministère de la Culture et des Arts",
+    "المكتبة الوطنية الجزائرية":"Bibliothèque nationale d’Algérie",
+    "بطاقة القارئ":"Carte de lecteur","بطاقة الباحث":"Carte de chercheur","بطاقة الطفل":"Carte enfant",
+    "اللقب":"Nom","الاسم":"Prénom","رقم القارئ":"N° de lecteur",
+    "اضغط على الرمز لعرضه بحجم كامل":"Appuyez sur le code pour l’afficher en grand",
+    "تعديل البيانات":"Modifier les données","إخفاء التعديل":"Masquer la modification",
+    "ميثاق الاستعمال":"Charte d’utilisation",
+    "رقم القارئ (الرقم المطبوع تحت الرمز)":"N° de lecteur (celui imprimé sous le code)",
+    "نوع الرمز الشريطي":"Type de code-barres",
+    "Code 128 (الأكثر شيوعاً)":"Code 128 (le plus courant)",
+    "الفئة":"Catégorie","قارئ":"Lecteur","باحث (ماستر)":"Chercheur (master)","طفل":"Enfant",
+    "لون البطاقة للزينة فقط، وليس له أي قيمة رسمية.":"La couleur de la carte est purement décorative et n’a aucune valeur officielle.",
+    "إذا لم يقرأ الماسح الرمز، جرّب النوع الآخر. تُحفظ البيانات في هذا المتصفح فقط ولا تُرسل إلى أي مكان.":"Si le scanner ne lit pas le code, essayez l’autre type. Les données restent uniquement dans ce navigateur et ne sont envoyées nulle part.",
+    "تنبيه مهم:":"Avis important :","هذه بطاقة رقمية":"Ceci est une carte numérique","تجريبية وغير رسمية":"expérimentale et non officielle",
+    ". تُستعمل":". Elle s’utilise","فقط في حالة ضياع":"uniquement en cas de perte",
+    "البطاقة الأصلية، و":"de la carte d’origine, et ",
+    "يجب بعد استعمالها التوجه مباشرة إلى إدارة المكتبة":"après usage, il faut aller directement à l’administration de la bibliothèque",
+    "للتصريح بالضياع. أدخل معلوماتك أنت فقط.":"pour déclarer la perte. Saisissez uniquement vos propres informations.",
+    "تصميم شخصي تجريبي. هذه الصفحة غير صادرة عن المكتبة الوطنية الجزائرية.":"Conception personnelle expérimentale. Cette page n’est pas émise par la Bibliothèque nationale d’Algérie.",
+    "إغلاق":"Fermer","تدوير":"Pivoter",
+    "ارفع سطوع الشاشة إلى الأقصى، وقرّب الهاتف من الماسح بشكل مستقيم":"Montez la luminosité de l’écran au maximum et approchez le téléphone du scanner, bien droit",
+    "أدخل رقم القارئ":"Saisissez le numéro de lecteur",
+    "هذا النوع يقبل الأحرف اللاتينية الكبيرة والأرقام فقط":"Ce type n’accepte que les lettres latines majuscules et les chiffres",
+    "أحرف غير مدعومة في الرقم":"Caractères non pris en charge dans le numéro",
+    "مشروع تجريبي غير رسمي":"Projet expérimental non officiel",
+    "شروط البطاقة":"Conditions de la carte",
+    "النص التالي مأخوذ من الوجه الخلفي للبطاقة الأصلية، للتذكير فقط.":"Le texte suivant provient du verso de la carte d’origine, à titre de rappel uniquement.",
+    "الاشتراك صالح لمدة سنة ابتداء من تاريخ التسجيل وهو قابل للتجديد عند انتهاء الصلاحية.":"L’abonnement est valable un an à compter de la date d’inscription et renouvelable à son expiration.",
+    "الحصول على هذه البطاقة هو التزام مسبق باحترام النظام الداخلي للمكتبة الوطنية الجزائرية.":"Obtenir cette carte implique de respecter au préalable le règlement intérieur de la Bibliothèque nationale d’Algérie.",
+    "هام":"Important",
+    "هذه البطاقة شخصية لا يمكن إعارتها أو استعمالها من طرف شخص آخر، وفي حالة الضياع يجب الاتصال بمصلحة الانخراط.":"Cette carte est personnelle : elle ne peut être prêtée ni utilisée par une autre personne. En cas de perte, il faut contacter le service des inscriptions.",
+    "الموقع الرسمي للمكتبة الوطنية الجزائرية":"Site officiel de la Bibliothèque nationale d’Algérie",
+    "إخلاء المسؤولية":"Clause de non-responsabilité",
+    "هذا مشروع تجريبي شخصي":"Ceci est un projet expérimental personnel ","غير رسمي":"non officiel",
+    "، ولا علاقة له بالمكتبة الوطنية الجزائرية ولا بأي مؤسسة أخرى، ولم تعتمده أي جهة.":", sans aucun lien avec la Bibliothèque nationale d’Algérie ni avec aucune autre institution, et aucune autorité ne l’a approuvé.",
+    "هو مجرد فكرة للتعلّم والتجربة، ولا يُلزم أحد باستعماله.":"Ce n’est qu’une idée pour apprendre et expérimenter, et personne n’est obligé de l’utiliser.",
+    "تُستعمل هذه البطاقة":"Cette carte s’utilise ",
+    "البطاقة الأصلية، ويجب بعد استعمالها التوجه مباشرة إلى مصلحة الانخراط للتصريح بالضياع.":" de la carte d’origine ; après usage, il faut aller directement au service des inscriptions pour déclarer la perte.",
+    "أدخل معلوماتك أنت فقط، ولا تستعمل بيانات شخص آخر.":"Saisissez uniquement vos propres informations, n’utilisez pas celles d’une autre personne.",
+    "لا يوجد أي ضمان بأن الرمز سيُقبل أو يُقرأ من أي ماسح أو نظام.":"Rien ne garantit que le code sera accepté ou lu par un scanner ou un système.",
+    "الاستعمال على مسؤولية المستخدم وحده، ولا يتحمل صاحب المشروع أي مسؤولية عن أي استعمال أو نتيجة، ما دام المشروع غير معتمد رسمياً من المؤسسة.":"L’utilisation se fait sous la seule responsabilité de l’utilisateur ; l’auteur du projet n’assume aucune responsabilité pour tout usage ou résultat, tant que le projet n’est pas officiellement approuvé par l’institution.",
+    "لا تُجمع أي بيانات شخصية: كل ما تدخله يبقى في جهازك فقط.":"Aucune donnée personnelle n’est collectée : tout ce que vous saisissez reste uniquement sur votre appareil.",
+    "إذا اعتمدت المكتبة المشروع رسمياً، يُحدَّث هذا الميثاق.":"Si la Bibliothèque adopte officiellement le projet, cette charte sera mise à jour.",
+    "فهمت، إغلاق":"Compris, fermer"
+  };
+  var ATTR={
+    "بطاقة القارئ":"Carte de lecteur","عرض الرمز بحجم كامل":"Afficher le code en grand","الرمز الشريطي":"Code-barres",
+    "رمز QR لموقع المكتبة":"Code QR du site de la bibliothèque","الرمز بحجم كامل":"Code en grand",
+    "شعار المكتبة الوطنية الجزائرية":"Logo de la Bibliothèque nationale d’Algérie"
+  };
+  var TITLE_AR="بطاقة القارئ", TITLE_FR="Carte de lecteur";
+  var STATUS={
+    reader:{ar:"بطاقة القارئ"}, researcher:{ar:"بطاقة الباحث"}, child:{ar:"بطاقة الطفل"}
+  };
+  var root=document.documentElement, lang="ar", orig=new WeakMap(), busy=false;
+
+  function store(k,v){ try{ window.localStorage.setItem(k,v); }catch(e){} }
+  function load(k){ try{ return window.localStorage.getItem(k); }catch(e){ return null; } }
+
+  function trText(n){
+    var v=n.nodeValue; if(!v||!/[؀-ۿ]/.test(v)) return;
+    var t=v.trim(), f=FR[t]; if(f===undefined) return;
+    var lead=v.slice(0,v.length-v.replace(/^\s+/,"").length), trail=v.slice(v.replace(/\s+$/,"").length);
+    var ft=f.trim(); if(/^\s/.test(f)&&!lead) lead=" "; if(/\s$/.test(f)&&!trail) trail=" ";
+    orig.set(n,v); n.nodeValue=lead+ft+trail;
+  }
+  function walk(node,fn){
+    var w=document.createTreeWalker(node,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+      var p=n.parentNode; return p&&/^(SCRIPT|STYLE)$/.test(p.nodeName)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT; }});
+    var list=[],n; while((n=w.nextNode())) list.push(n); list.forEach(fn);
+  }
+  function attrs(toFr){
+    var els=document.querySelectorAll("[aria-label],img[alt]");
+    Array.prototype.forEach.call(els,function(el){
+      ["aria-label","alt"].forEach(function(a){
+        var v=el.getAttribute(a); if(v===null) return;
+        if(toFr){ if(ATTR[v]!==undefined){ el.setAttribute("data-ar-"+a,v); el.setAttribute(a,ATTR[v]); } }
+        else if(el.hasAttribute("data-ar-"+a)){ el.setAttribute(a,el.getAttribute("data-ar-"+a)); el.removeAttribute("data-ar-"+a); }
+      });
+    });
+  }
+  function applyLang(l){
+    busy=true; lang=l;
+    root.setAttribute("lang",l); root.setAttribute("dir",l==="fr"?"ltr":"rtl");
+    if(l==="fr"){ walk(document.body,trText); attrs(true); document.title=TITLE_FR; }
+    else{ walk(document.body,function(n){ if(orig.has(n)){ n.nodeValue=orig.get(n); orig.delete(n); } }); attrs(false); document.title=TITLE_AR; }
+    var bar=document.getElementById("lang-sw");
+    if(bar){ bar.setAttribute("data-l",l); Array.prototype.forEach.call(bar.querySelectorAll("button"),function(b){ b.setAttribute("aria-pressed",b.getAttribute("data-l")===l?"true":"false"); }); }
+    setTimeout(function(){ busy=false; },0);
+  }
+  function switchLang(l){
+    if(l===lang) return;
+    store("lecteur-lang",l);
+    var calm=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+    if(calm){ applyLang(l); return; }
+    root.classList.add("sw");
+    setTimeout(function(){ applyLang(l); requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.remove("sw"); }); }); },210);
+  }
+
+  // dynamic strings written later by the page (button label, barcode errors)
+  new MutationObserver(function(ms){
+    if(busy||lang!=="fr") return; busy=true;
+    ms.forEach(function(m){
+      if(m.type==="characterData"){ trText(m.target); }
+      Array.prototype.forEach.call(m.addedNodes,function(n){
+        if(n.nodeType===3) trText(n); else if(n.nodeType===1) walk(n,trText);
+      });
+    });
+    setTimeout(function(){ busy=false; },0);
+  }).observe(document.body,{childList:true,subtree:true,characterData:true});
+
+  // language switch
+  var stage=document.querySelector(".stage");
+  var bar=document.createElement("div"); bar.className="langbar";
+  bar.innerHTML='<div class="lang" id="lang-sw" role="group" aria-label="اللغة / Langue" data-l="ar"><span class="knob" aria-hidden="true"></span><button type="button" data-l="fr" lang="fr" aria-pressed="false">Français</button><button type="button" data-l="ar" lang="ar" aria-pressed="true">العربية</button></div>';
+  stage.insertBefore(bar,stage.firstChild);
+  bar.addEventListener("click",function(e){ var b=e.target.closest&&e.target.closest("button[data-l]"); if(b) switchLang(b.getAttribute("data-l")); });
+
+  // status (purely decorative colour of the card)
+  var form=document.getElementById("edit"), card=document.getElementById("card"), pill=card.querySelector(".pill");
+  var lab=document.createElement("label"); lab.setAttribute("for","in-status");
+  lab.innerHTML='الفئة<select id="in-status"><option value="reader">قارئ</option><option value="researcher">باحث (ماستر)</option><option value="child">طفل</option></select>';
+  var nt=document.createElement("p"); nt.className="note"; nt.textContent="لون البطاقة للزينة فقط، وليس له أي قيمة رسمية.";
+  var first=form.querySelector(".note"); form.insertBefore(lab,first); form.insertBefore(nt,first);
+  var sel=lab.querySelector("select");
+  function setStatus(s,save){
+    if(!STATUS[s]) s="reader";
+    sel.value=s; if(s==="reader") card.removeAttribute("data-status"); else card.setAttribute("data-status",s);
+    pill.textContent=STATUS[s].ar; if(save) store("lecteur-status",s);
+  }
+  sel.addEventListener("change",function(){ setStatus(sel.value,true); });
+  setStatus(load("lecteur-status")||"reader",false);
+
+  if(load("lecteur-lang")==="fr") applyLang("fr");
 })();
 </script>
 </body>
